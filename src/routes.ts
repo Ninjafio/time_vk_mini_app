@@ -14,6 +14,7 @@ export const DEFAULT_VIEW_PANELS = {
   HOME: 'home',
   LIST: 'list',
   SEARCHRESULT: 'searchresult',
+  SEARCHPANEL: 'searchpanel',
 } as const;
 
 export const routes = RoutesConfig.create([
@@ -22,6 +23,7 @@ export const routes = RoutesConfig.create([
       createPanel(DEFAULT_VIEW_PANELS.HOME, '/', []),
       createPanel(DEFAULT_VIEW_PANELS.LIST, `/${DEFAULT_VIEW_PANELS.LIST}`, []),
       createPanel(DEFAULT_VIEW_PANELS.SEARCHRESULT, `/${DEFAULT_VIEW_PANELS.SEARCHRESULT}`, []),
+      createPanel(DEFAULT_VIEW_PANELS.SEARCHPANEL, `/${DEFAULT_VIEW_PANELS.SEARCHPANEL}`, []),
     ]),
   ]),
 ]);

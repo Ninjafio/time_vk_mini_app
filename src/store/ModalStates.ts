@@ -23,16 +23,25 @@ export const $selectedSearchFilm = createStore<IFilm[]>([]);
 export const $createListTitle = createStore<string>("");
 export const $createListDescr = createStore<string>("");
 export const $searchByTxt = createStore<string>("");
+export const $searchByTag1 = createStore<string>("");
+export const $searchByTag2 = createStore<string>("");
+export const $searchByTagCounter = createStore<number>(0);
 
 export const setSelectedSearchFilm = createStore<[]>([]);
 export const setCreateListTitle = createEvent<string>();
 export const setCreateListDescr = createEvent<string>();
 export const setSearchByTxt = createEvent<string>();
+export const setSearchByTag1 = createEvent<string>();
+export const setSearchByTag2 = createEvent<string>();
+export const setSearchByTagCounter = createEvent<number>();
 
 $createListTitle.on(setCreateListTitle, (_, state) => state)
 $createListDescr.on(setCreateListDescr, (_, state) => state)
 $selectedSearchFilm.on(setSelectedSearchFilm, (_, state) => state)
 $searchByTxt.on(setSearchByTxt, (_, state) => state)
+$searchByTag1.on(setSearchByTag1, (_, state) => state)
+$searchByTag2.on(setSearchByTag2, (_, state) => state)
+$searchByTagCounter.on(setSearchByTagCounter, (_, state) => state)
 
 
 export const setFetchedFilm = createEvent<IFilm>();

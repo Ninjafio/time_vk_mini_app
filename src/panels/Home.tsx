@@ -68,12 +68,14 @@ export const Home: FC<HomeProps> = ({ id }) => {
           Фильм вслепую
         </Text>
         <Spacing size={16} />
+        <RouterLink to="/searchpanel">
         <Search
           value={search}
-          onChange={onChange}
           after={null}
           placeholder="Поиск по тегам"
+          
         />
+        </RouterLink>
       </Tabbar>
       <Group separator="hide" style={{ paddingBottom: 100 }}>
         <FilmList />

@@ -36,6 +36,7 @@ import {
 import CreateListModalPage from "./components/createListModalPage/CreateListModalPage";
 import { RouterLink, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { Cross24 } from "./img";
+import { SearchPanel } from "./panels/SearchPanel";
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } =
@@ -301,6 +302,7 @@ export const App = () => {
         <View activePanel={activePanel}>
           <Home id="home" fetchedUser={fetchedUser} />
           <List id="list" />
+          <SearchPanel id="searchpanel" />
           <SearchResult id="searchresult" />
         </View>
       </SplitCol>

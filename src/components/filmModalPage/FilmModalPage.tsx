@@ -169,8 +169,7 @@ const FilmModalPage: React.FC<FilmCardProps> = ({ film, onClose, id }) => {
         </Button>
         <Button mode="outline" style={{
           color: "#2F37FF",
-          borderColor: "#2F37FF !important",
-          outlineColor: "#2F37FF !important",
+          boxShadow: "inset 0 0 0 1px #2F37FF"
         }}>
           Просмотренно
         </Button>
