@@ -5,7 +5,7 @@ import { $selectedSearchFilm } from "../../store/ModalStates";
 import { useUnit } from "effector-react";
 import SelectedSearchFilmCard from "../selectedSearchFilmCard/SelectedSearchFilmCard";
 
-const FilmList: React.FC = () => {
+const CreateListSelectedFilms: React.FC = () => {
 
   
   const selectedSearchFilm = useUnit($selectedSearchFilm);
@@ -19,4 +19,4 @@ const FilmList: React.FC = () => {
   )
 };
 
-export default FilmList;
+export default CreateListSelectedFilms;

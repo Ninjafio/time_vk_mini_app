@@ -32,6 +32,8 @@ import {
   setActiveModal,
   $searchByTxt,
   setSearchByTxt,
+  setIsSearchByTag,
+  loadListsFx,
 } from "./store/ModalStates";
 import CreateListModalPage from "./components/createListModalPage/CreateListModalPage";
 import { RouterLink, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
@@ -68,7 +70,7 @@ export const App = () => {
   const GUIDE_FOURTH = "guide_fourth";
   const GUIDE_FIFTH = "guide_fifth";
 
-  const [fetchedUser, setUser] = useState<UserInfo | undefined>(); //user данные из vk
+  const [fetchedUser, setUser] = useState<UserInfo>(); //user данные из vk
   const [filmUser, setFilmUser] = useState<IFilm | undefined>(); //user данные из api
   const [popout, setPopout] = useState<ReactNode | null>(
     <ScreenSpinner size="large" />
@@ -85,6 +87,12 @@ export const App = () => {
       })
       .catch((err) => console.error(err));
   }, []); // проверяем есть ли пользователь
+  console.log(filmUser);
+
+  useEffect(() => {
+    const userId = fetchedUser?.id;
+    loadListsFx(userId);
+}, [])
 
   useEffect(() => {
     async function fetchData() {
@@ -103,10 +111,12 @@ export const App = () => {
     setSearchByTxt(String(e.target.value));
     console.log(search);
   };
-  const handleOnClicnkSearch = () => {
+  const handleOnClickSearch = () => {
+    setIsSearchByTag(false);
     routeNavigator.push("/searchresult")
     setActiveModal("");
   };
+
 
 
   const modal = (
@@ -165,7 +175,7 @@ export const App = () => {
               margin: "0 auto",
             }}
             stretched={true}
-            onClick={() => handleOnClicnkSearch()}
+            onClick={() => handleOnClickSearch()}
           >
             Поиск
           </Button>

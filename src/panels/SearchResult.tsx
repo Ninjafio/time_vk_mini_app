@@ -18,9 +18,9 @@ import {
   Icon16BookmarkOutline,
   Icon28MessageOutline,
 } from "@vkontakte/icons";
-import { AddCircle24 } from "../img";
-import { handleCreateListClick } from "../App";
 import SearchList from "../components/searchList/SearchList";
+import { useUnit } from "effector-react";
+import { $isSearchByTag } from "../store/ModalStates";
 
 export interface CaseIdProps extends NavIdProps {
   fetchedUser?: UserInfo;
@@ -28,6 +28,7 @@ export interface CaseIdProps extends NavIdProps {
 
 export const SearchResult: FC<CaseIdProps> = ({ id }) => {
   const routeNavigator = useRouteNavigator();
+  const isSearchByTag = useUnit($isSearchByTag);
 
   return (
     <Panel id={id} style={{ marginTop: 20 }}>
@@ -43,53 +44,74 @@ export const SearchResult: FC<CaseIdProps> = ({ id }) => {
       >
         <Spacing size={16} />
         <div style={{ display: "flex", width: "90%" }}>
-          
-      <Text style={{ margin: "0 0 0 30px", fontSize: 17, color: "#2F37FF", cursor: "pointer" }} onClick={() => routeNavigator.back()}>
-        Назад
-      </Text>
-        <Text style={{ margin: "0 auto", fontSize: 20, fontWeight: "600", justifySelf: "center" }}>
-          Результаты поиска
-        </Text>
+          <Text
+            style={{
+              margin: "0 0 0 30px",
+              fontSize: 17,
+              color: "#2F37FF",
+              cursor: "pointer",
+            }}
+            onClick={() => routeNavigator.back()}
+          >
+            Назад
+          </Text>
+          <Text
+            style={{
+              margin: "0 auto",
+              fontSize: 20,
+              fontWeight: "600",
+              justifySelf: "center",
+            }}
+          >
+            Результаты поиска
+          </Text>
         </div>
       </Tabbar>
+      {isSearchByTag ? (
+        <Group separator="hide" style={{ paddingBottom: 100 }}>
+          <SearchList />
+        </Group>
+      ) : (
+        <>
+          <Group separator="hide" style={{ paddingBottom: 100 }}>
+            <SearchList />
+          </Group>
 
-      <Group separator="hide" style={{ paddingBottom: 100 }}>
-        <SearchList />
-      </Group>
-
-      <Tabbar
-        style={{
-          position: "fixed",
-          margin: "10px 0",
-          bottom: -20,
-          height: 70,
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <RouterLink to="/">
-          <TabbarItem selected={false} text="Фильм вслепую">
-            <Icon28NewsfeedOutline style={{ color: "#99A2AD" }} />
-          </TabbarItem>
-        </RouterLink>
-        <RouterLink to="/list">
-          <TabbarItem
-            selected={true}
-            style={{ color: "#2F37FF" }}
-            onClick={() => 0}
-            text="Списки"
+          <Tabbar
+            style={{
+              position: "fixed",
+              margin: "10px 0",
+              bottom: -20,
+              height: 70,
+              display: "flex",
+              justifyContent: "space-around",
+            }}
           >
-            <Icon16BookmarkOutline
-              style={{ width: 28, height: 30, color: "#2F37FF" }}
-            />
-          </TabbarItem>
-        </RouterLink>
-        <RouterLink to="/">
-          <TabbarItem selected={false} onClick={() => 0} text="Подборки">
-            <Icon28MessageOutline />
-          </TabbarItem>
-        </RouterLink>
-      </Tabbar>
+            <RouterLink to="/">
+              <TabbarItem selected={false} text="Фильм вслепую">
+                <Icon28NewsfeedOutline style={{ color: "#99A2AD" }} />
+              </TabbarItem>
+            </RouterLink>
+            <RouterLink to="/list">
+              <TabbarItem
+                selected={true}
+                style={{ color: "#2F37FF" }}
+                onClick={() => 0}
+                text="Списки"
+              >
+                <Icon16BookmarkOutline
+                  style={{ width: 28, height: 30, color: "#2F37FF" }}
+                />
+              </TabbarItem>
+            </RouterLink>
+            <RouterLink to="/">
+              <TabbarItem selected={false} onClick={() => 0} text="Подборки">
+                <Icon28MessageOutline />
+              </TabbarItem>
+            </RouterLink>
+          </Tabbar>
+        </>
+      )}
     </Panel>
   );
 };

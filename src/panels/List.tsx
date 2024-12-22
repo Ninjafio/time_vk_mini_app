@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import {
   Card,
   CardGrid,
+  Group,
   Image,
   NavIdProps,
   Panel,
@@ -19,6 +20,7 @@ import {
 } from "@vkontakte/icons";
 import { AddCircle24 } from "../img";
 import { handleCreateListClick } from "../App";
+import ListsList from "../components/listsList/ListsList";
 
 export interface CaseIdProps extends NavIdProps {
   fetchedUser?: UserInfo;
@@ -68,7 +70,9 @@ export const List: FC<CaseIdProps> = ({ id }) => {
           Создать
         </Card>
       </CardGrid>
-
+          <Group>
+            <ListsList />
+          </Group>
       <Tabbar
         style={{
           position: "fixed",

@@ -73,7 +73,6 @@ export const Home: FC<HomeProps> = ({ id }) => {
           value={search}
           after={null}
           placeholder="Поиск по тегам"
-          
         />
         </RouterLink>
       </Tabbar>
@@ -83,7 +82,7 @@ export const Home: FC<HomeProps> = ({ id }) => {
       <Tabbar
         style={{ position: "fixed", margin: "10px 0", bottom: -20, height: 70, display: "flex", justifyContent: "space-around" }}
       >
-        <RouterLink to="/home">
+        <RouterLink to="/">
         <TabbarItem
           selected={true}
           style={{ color: "#2F37FF" }}

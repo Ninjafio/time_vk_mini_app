@@ -1,6 +1,9 @@
-import React from "react";
-import { Card, CardGrid, Spacing, Text } from "@vkontakte/vkui";
+import React, { useEffect } from "react";
+import { Card, CardGrid, Spacing, Text, Image } from "@vkontakte/vkui";
 import { IFilm } from "../../types/films";
+import { $selectedSearchFilm, setActiveModal } from "../../store/ModalStates";
+import { useUnit } from "effector-react";
+import { RemoveCircle24 } from "../../img";
 
 interface FilmCardProps {
   film: IFilm;
@@ -8,68 +11,89 @@ interface FilmCardProps {
 }
 
 const SelectedSearchFilmCard: React.FC<FilmCardProps> = ({ film, onClick }) => {
+  const selectedSearchFilm = useUnit($selectedSearchFilm);
+
+  const handleDelClick = (film: IFilm) => {
+    selectedSearchFilm.splice(selectedSearchFilm.indexOf(film), 1);
+    setActiveModal("");
+    setTimeout(() => setActiveModal("create_list_modal_page"), 1);
+  };
+
   return (
     <div>
-      <CardGrid size="l">
+      <CardGrid
+        size="l"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 13,
+          flexDirection: "row",
+          flexWrap: "nowrap",
+          marginTop: 12,
+          marginLeft: 13
+        }}
+      >
+        <Image
+          src={RemoveCircle24}
+          noBorder
+          onClick={() => handleDelClick(film)}
+          style={{ width: 24, height: 24, cursor: "pointer" }}
+        />
         <Card
           mode="shadow"
           style={{
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
-            marginTop: 35,
-            display: film.isViewed ? "none" : "block",
+            marginTop: 0,
+            maxWidth: 300,
+            height: 100,
           }}
           onClick={onClick}
         >
-          <img
-            src={film.img.split(" ")[0]}
-            alt={film.title}
-            className="filmCard__img"
+          <div
             style={{
-              width: "100%",
-              borderTopLeftRadius: 10,
-              borderTopRightRadius: 10,
+              background:
+                "linear-gradient(180deg, rgb(34, 34, 34) 0%, #000000 100%)",
+              borderRadius: 10,
+              height: 100,
+              overflow: "hidden",
             }}
-          />
-          <Spacing size={16} />
+          >
+            <img
+              src={film.img.split(" ")[0]}
+              alt={film.title}
+              className="filmCard__img"
+              style={{
+                width: "100%",
+                borderRadius: 10,
+                opacity: 0.5,
+                marginTop: -50,
+              }}
+            />
+          </div>
           <Text
-            weight="2"
             style={{
-              marginLeft: 16,
-              marginRight: 16,
-              opacity: 0.5,
+              position: "absolute",
+              bottom: 0,
+              color: "#818C99",
               fontSize: 11,
+              padding: 10,
+              paddingBottom: 25,
             }}
           >
-            ФИЛЬМ ВСЛЕПУЮ
+            {film.year}
           </Text>
           <Text
-            weight="2"
-            style={{ marginLeft: 16, marginRight: 16, fontSize: 17 }}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              color: "white",
+              fontSize: 17,
+              padding: 10,
+            }}
           >
-            {film.tags.replace(/\s/g, ", ")} <br />
-            <Spacing size={16} />
-            <div style={{lineHeight: 3}}>
-            {film.genre.split(" ").map((genre, index) => (
-              <span
-                style={{
-                  backgroundColor: "#2F37FF",
-                  marginRight: 5,
-                  color: "white",
-                  padding: "5px 15px 8px 15px",
-                  borderRadius: 10,
-                  whiteSpace: "nowrap",
-                  marginTop: 5,
-                }}
-                key={index}
-              >
-                #{genre}
-              </span>
-            ))}
-              
-            </div>
+            {film.title}
           </Text>
-          <Spacing size={20} />
         </Card>
       </CardGrid>
     </div>

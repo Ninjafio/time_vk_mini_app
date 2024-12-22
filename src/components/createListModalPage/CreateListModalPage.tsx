@@ -23,6 +23,7 @@ import { AddCircle24, Cross24 } from "../../img";
 import { handleSearchClick } from "../../App";
 import { useUnit } from "effector-react";
 import { $createListDescr, $createListTitle, setCreateListTitle, setCreateListDescr } from "../../store/ModalStates";
+import CreateListSelectedFilms from "../createListSelectedFilms/CreateListSelectedFilms";
 
 interface FilmCardProps {
   onClose?: () => void;
@@ -100,6 +101,8 @@ const CreateListModalPage: React.FC<FilmCardProps> = ({ onClose, id }) => {
           </Text>
         </Card>
       </CardGrid>
+      <Spacing size={30} />
+      <CreateListSelectedFilms />
       <Spacing size={30} />
     </ModalPage>
   );

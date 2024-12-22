@@ -41,7 +41,7 @@ const FilmModalPage: React.FC<FilmCardProps> = ({ film, onClose, id }) => {
         </Text>
       </div>
       <Spacing size={16} />
-      <div style={{ width: 400 }}>
+      <div style={{ maxWidth: 400 }}>
         <Swiper
           modules={[Pagination, A11y, FreeMode]}
           freeMode={true}
@@ -59,7 +59,7 @@ const FilmModalPage: React.FC<FilmCardProps> = ({ film, onClose, id }) => {
                   (film && film.img.split(" ")[1]) || ""
                 })`,
                 height: 350,
-                width: 400,
+                maxWidth: 400,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 borderTopLeftRadius: 10,
@@ -80,7 +80,7 @@ const FilmModalPage: React.FC<FilmCardProps> = ({ film, onClose, id }) => {
                   (film && film.img.split(" ")[2]) || ""
                 })`,
                 height: 350,
-                width: 400,
+                maxWidth: 400,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 borderTopLeftRadius: 10,
@@ -101,7 +101,7 @@ const FilmModalPage: React.FC<FilmCardProps> = ({ film, onClose, id }) => {
                   (film && film.img.split(" ")[3]) || ""
                 })`,
                 height: 350,
-                width: 400,
+                maxWidth: 400,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 borderTopLeftRadius: 10,
