@@ -18,9 +18,11 @@ import {
   Icon16BookmarkOutline,
   Icon28MessageOutline,
 } from "@vkontakte/icons";
-import { AddCircle24 } from "../img";
+import { AddCircle24, Collection, Home } from "../img";
 import { handleCreateListClick } from "../App";
 import ListsList from "../components/listsList/ListsList";
+import { $filmUser } from "../store/ModalStates";
+import { useUnit } from "effector-react";
 
 export interface CaseIdProps extends NavIdProps {
   fetchedUser?: UserInfo;
@@ -28,6 +30,7 @@ export interface CaseIdProps extends NavIdProps {
 
 export const List: FC<CaseIdProps> = ({ id }) => {
   const routeNavigator = useRouteNavigator();
+  const filmUser = useUnit($filmUser);
 
   useEffect(() => {}, []);
 
@@ -70,9 +73,9 @@ export const List: FC<CaseIdProps> = ({ id }) => {
           Создать
         </Card>
       </CardGrid>
-          <Group>
-            <ListsList />
-          </Group>
+      <Group>
+        <ListsList />
+      </Group>
       <Tabbar
         style={{
           position: "fixed",
@@ -85,7 +88,7 @@ export const List: FC<CaseIdProps> = ({ id }) => {
       >
         <RouterLink to="/">
           <TabbarItem selected={false} text="Фильм вслепую">
-            <Icon28NewsfeedOutline style={{ color: "#99A2AD" }} />
+            <Image noBorder src={Home} style={{ width: 28, height: 30 }} />
           </TabbarItem>
         </RouterLink>
         <RouterLink to="/list">
@@ -100,9 +103,13 @@ export const List: FC<CaseIdProps> = ({ id }) => {
             />
           </TabbarItem>
         </RouterLink>
-        <RouterLink to="/">
+        <RouterLink to="/collections">
           <TabbarItem selected={false} onClick={() => 0} text="Подборки">
-            <Icon28MessageOutline />
+            <Image
+              noBorder
+              src={Collection}
+              style={{ width: 28, height: 30 }}
+            />
           </TabbarItem>
         </RouterLink>
       </Tabbar>

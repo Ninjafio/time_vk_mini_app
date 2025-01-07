@@ -19,3 +19,11 @@ export interface IList {
   descr: string;
   content: string;
 }
+
+export interface IFIlmUser {
+  id: string;
+  createdAt: string;
+  favorite: string;
+  viewed: string;
+  wantToWatch: string;
+}

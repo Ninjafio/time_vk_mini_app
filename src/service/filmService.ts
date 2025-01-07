@@ -1,6 +1,6 @@
 export const fetchFilms = async () => {
   try {
-    const response = await fetch("http://localhost:3001/films", {
+    const response = await fetch("https://nav8vx-77-222-122-62.ru.tuna.am/films", {
       method: "GET",
     });
     if (!response.ok) {
@@ -16,7 +16,7 @@ export const fetchFilms = async () => {
 export const fetchLists = async (userId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/user/list/${userId}`
+      `https://nav8vx-77-222-122-62.ru.tuna.am/user/list/${userId}`
     );
     if (!response.ok) {
       throw new Error("Failed to fetch dogs");
@@ -25,6 +25,31 @@ export const fetchLists = async (userId: number) => {
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];
+  }
+};
+
+export const addList = async ( 
+  id: number,
+  name: string,
+  summ: number,
+  // time:number,
+  //userId: number,
+) =>{
+  try {
+      const response = await fetch(`https://nav8vx-77-222-122-62.ru.tuna.am/user/list/createList`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, summ,id}),
+      })
+      if (!response.ok){
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+  } catch (error) {
+      console.error("Error postong data:", error);
   }
 };
 
@@ -42,7 +67,7 @@ export const putFilm = async (
   }
 ) => {
   try {
-    const response = await fetch(`http://localhost:3001/films/${where.id}`, {
+    const response = await fetch(`https://nav8vx-77-222-122-62.ru.tuna.am/films/${where.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -34,11 +34,15 @@ import {
   setSearchByTxt,
   setIsSearchByTag,
   loadListsFx,
+  setFilmUser,
+  $filmUser,
 } from "./store/ModalStates";
 import CreateListModalPage from "./components/createListModalPage/CreateListModalPage";
 import { RouterLink, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { Cross24 } from "./img";
 import { SearchPanel } from "./panels/SearchPanel";
+import { Collections } from "./panels/Collections";
+import { Collection } from "./panels/Collection";
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } =
@@ -59,6 +63,7 @@ export const App = () => {
       country: string;
     }[]
   >([]);
+  const filmUser = useUnit($filmUser);
   const selectedFilm = useUnit($selectedFilm);
   const activeModal = useUnit($storeActiveModal);
   const search = useUnit($searchByTxt);
@@ -71,14 +76,20 @@ export const App = () => {
   const GUIDE_FIFTH = "guide_fifth";
 
   const [fetchedUser, setUser] = useState<UserInfo>(); //user данные из vk
-  const [filmUser, setFilmUser] = useState<IFilm | undefined>(); //user данные из api
   const [popout, setPopout] = useState<ReactNode | null>(
     <ScreenSpinner size="large" />
   );
+  useEffect(() => {
+    async function fetchData() {
+      const user = await bridge.send("VKWebAppGetUserInfo");
+      await setUser(user);
+      setPopout(null);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    const userId = fetchedUser?.id;
-    fetch(`http://localhost:3001/user/${userId}`, {
+    fetch(`http://localhost:3001/user/${fetchedUser?.id}`, {
       method: "GET",
     })
       .then((responce) => responce.json())
@@ -93,15 +104,6 @@ export const App = () => {
     const userId = fetchedUser?.id;
     loadListsFx(userId);
 }, [])
-
-  useEffect(() => {
-    async function fetchData() {
-      const user = await bridge.send("VKWebAppGetUserInfo");
-      setUser(user);
-      setPopout(null);
-    }
-    fetchData();
-  }, []);
 
   const handleCloseModal = () => {
     setActiveModal("");
@@ -314,6 +316,8 @@ export const App = () => {
           <List id="list" />
           <SearchPanel id="searchpanel" />
           <SearchResult id="searchresult" />
+          <Collections id="collections" />
+          <Collection id="collection" />
         </View>
       </SplitCol>
     </SplitLayout>

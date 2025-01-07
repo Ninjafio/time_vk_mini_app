@@ -8,6 +8,7 @@ import {
   TabbarItem,
   Text,
   Spacing,
+  Image,
 } from "@vkontakte/vkui";
 import { UserInfo } from "@vkontakte/vk-bridge";
 import { RouterLink, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
@@ -19,6 +20,7 @@ import {
 } from "@vkontakte/icons";
 import FilmList from "../components/filmList/FilmList";
 import { loadFilmsFx } from "../store/ModalStates";
+import { Collection, HomeActive } from "../img";
 
 export interface HomeProps extends NavIdProps {
   fetchedUser?: UserInfo;
@@ -89,7 +91,7 @@ export const Home: FC<HomeProps> = ({ id }) => {
           onClick={() => 0}
           text="Фильм вслепую"
         >
-          <Icon28NewsfeedOutline style={{ color: "#2F37FF" }} />
+          <Image noBorder src={HomeActive} style={{ width: 28, height: 30 }} />
         </TabbarItem>
         </RouterLink>
         <RouterLink to="/list">
@@ -101,9 +103,9 @@ export const Home: FC<HomeProps> = ({ id }) => {
             <Icon16BookmarkOutline style={{ width: 28, height: 30 }} />
           </TabbarItem>
         </RouterLink>
-        <RouterLink to="/home">
+        <RouterLink to="/collections">
         <TabbarItem selected={false} onClick={() => 0} text="Подборки">
-          <Icon28MessageOutline />
+          <Image noBorder src={Collection} style={{ width: 28, height: 30 }} />
         </TabbarItem>
         </RouterLink>
       </Tabbar>
